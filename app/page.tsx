@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <div>
-      <section className="rounded bg-neutral-100 py-8 sm:py-12">
+      <section className="rounded bg-white py-8 sm:py-12">
         <div className="mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2">
           <div className="max-w-md space-y-4">
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
@@ -38,8 +38,9 @@ export default async function Home() {
             alt="Hero Image"
             src={products.data[0].images[0]}
             className="rounded"
-            width={150}
-            height={150}
+            objectFit="contain"
+            width={100}
+            height={100}
           />
         </div>
       </section>
