@@ -68,6 +68,9 @@ export const ProductDetail = ({ product }: Props) => {
             <Button>
               <Link href="/checkout">Gå till kassan</Link>
             </Button>
+            <Button className="bg-yellow-500 text-black">
+              <Link href="/products">Go back to products</Link>
+            </Button>
           </div>
         </div>
       </div>

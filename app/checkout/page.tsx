@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCartStore } from "@/store/cart-store";
 import { checkoutAction } from "./checkout-action";
+import Link from "next/link";
 
 export default function CheckoutPage() {
   const { items, removeItem, addItem } = useCartStore();
@@ -74,13 +75,16 @@ export default function CheckoutPage() {
         </CardContent>
       </Card>
 
-      <form action={checkoutAction} className="max-w-md mx-auto">
+      <form action={checkoutAction} className="max-w-md mx-auto space-y-4">
         <input type="hidden" name="items" value={JSON.stringify(items)} />
         <Button
           type="submit"
           className="w-full bg-black text-white hover:bg-yellow-500 hover:text-black transition-colors"
         >
           Proceed to Payment
+        </Button>
+        <Button className="w-full bg-black text-white hover:bg-yellow-500 hover:text-black transition-colors">
+          <Link href="/products">Go back to products</Link>
         </Button>
       </form>
     </div>
