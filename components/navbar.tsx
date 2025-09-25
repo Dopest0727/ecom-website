@@ -29,21 +29,34 @@ export const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white shadow">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link href="/" className="hover:text-blue-600">
-          My Ecommerce
+        <Link
+          href="/"
+          className="font-bold text-xl text-yellow-500 hover:text-yellow-400"
+        >
+          Minimal Rusta
         </Link>
+
         <div className="hidden md:flex space-x-6">
           <Link href="/">Home</Link>
-          <Link href="/products" className="hover:text-blue-600">
+          <Link
+            href="/products"
+            className="text-gray-800 hover:text-yellow-500 transition-colors"
+          >
             Products
           </Link>
-          <Link href="/checkout" className="hover:text-blue-600">
+          <Link
+            href="/checkout"
+            className="text-gray-800 hover:text-yellow-500 transition-colors"
+          >
             Checkout
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          <Link href="/checkout" className="relative">
-            <ShoppingCartIcon className="h-6 w-6" />
+          <Link
+            href="/checkout"
+            className="relative hover:ring-1 hover:ring-yellow-500 rounded-lg transition"
+          >
+            <ShoppingCartIcon className="h-6 w-6 text-gray-800" />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
                 {cartCount}
@@ -64,20 +77,29 @@ export const Navbar = () => {
         </div>
       </div>
       {mobileOpen && (
-        <nav className="md:hidden bg-white shadow-md">
+        <nav className="md:hidden bg-white/95 backdrop-blur-md shadow-md">
           <ul className="flex flex-col p-4 space-y-2">
             <li>
-              <Link href="/" className="block hover:text-blue-600">
+              <Link
+                href="/"
+                className="block text-gray-800 hover:text-yellow-500"
+              >
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/products" className="block hover:text-blue-600">
+              <Link
+                href="/products"
+                className="block text-gray-800 hover:text-yellow-500"
+              >
                 Products
               </Link>
             </li>
             <li>
-              <Link href="/checkout" className="block hover:text-blue-600">
+              <Link
+                href="/checkout"
+                className="block text-gray-800 hover:text-yellow-500"
+              >
                 Checkout
               </Link>
             </li>

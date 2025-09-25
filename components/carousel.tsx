@@ -24,26 +24,25 @@ export const Carousel = ({ products }: Props) => {
   const price = currentProduct.default_price as Stripe.Price;
 
   return (
-    <Card className="relative overflow-hidden rounded-lg shadow-md border-gray-300">
-      {currentProduct.images && currentProduct.images[0] && (
-        <div className="relative h-80 w-full">
+    <Card className="relative overflow-hidden rounded-2xl border border-neutral-200 shadow-sm">
+      {currentProduct.images?.[0] && (
+        <div className="relative h-96 w-full">
           <Image
             src={currentProduct.images[0]}
             alt={currentProduct.name}
             fill
-            style={{ objectFit: "contain" }}
-            className="transition-opacity duration-500 ease-in-out"
+            className="object-contain p-8 transition-opacity duration-700 ease-in-out"
           />
         </div>
       )}
-      <CardContent className="absolute inset-0 flex items-center justify-between bg-black bg-opacity-50">
-        <div className="bg-yellow-400 h-30 w-auto px-10 items-center flex flex-col justify-center rounded-lg">
-          <CardTitle className="text-3xl  font-bold text-black mb-2">
+      <CardContent className="absolute bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md p-6">
+        <div className="flex flex-col items-center space-y-2">
+          <CardTitle className="text-2xl font-semibold text-neutral-900">
             {currentProduct.name}
           </CardTitle>
-          {price && price.unit_amount && (
-            <p className="text-xl text-black text-center">
-              {(price.unit_amount / 100).toFixed(2)}
+          {price?.unit_amount && (
+            <p className="text-lg text-neutral-700">
+              ${(price.unit_amount / 100).toFixed(2)}
             </p>
           )}
         </div>

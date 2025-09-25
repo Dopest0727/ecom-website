@@ -12,40 +12,38 @@ export default async function Home() {
 
   return (
     <div>
-      <section className="rounded bg-white py-8 sm:py-12">
-        <div className="mx-auto grid grid-cols-1 items-center justify-items-center gap-8 px-8 sm:px-16 md:grid-cols-2">
-          <div className="max-w-md space-y-4">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+      <section className="min-h-[80vh] flex items-center">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-6 md:grid-cols-2 md:gap-16">
+          <div className="flex flex-col justify-center space-y-6">
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
               Welcome to Minimal Rusta
-            </h2>
-            <p className="text-neutral-600">
+            </h1>
+            <p className="text-lg text-neutral-600">
               Discover the latest products at the best prices.
             </p>
             <Button
               asChild
-              variant="default"
-              className="inline-flex items-center justify-center rounded-full px-6 py-3 bg-black text-white"
+              className="w-fit rounded-full px-8 py-4 bg-black text-white text-base"
             >
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center rounded-full px-6 py-3"
-              >
-                Browse All Products
-              </Link>
+              <Link href="/products">Browse All Products</Link>
             </Button>
           </div>
-          <Image
-            alt="Hero Image"
-            src={products.data[0].images[0]}
-            className="rounded"
-            style={{ objectFit: "contain" }}
-            width={100}
-            height={100}
-          />
+          <div className="flex justify-center">
+            <Image
+              alt="Hero Image"
+              src={products.data[1].images[0]}
+              className="rounded-xl object-contain"
+              width={500}
+              height={500}
+              priority
+            />
+          </div>
         </div>
       </section>
-      <section>
-        <Carousel products={products.data} />
+      <section className="py-24 bg-neutral-50">
+        <div className="mx-auto max-w-6xl px-6">
+          <Carousel products={products.data} />
+        </div>
       </section>
     </div>
   );

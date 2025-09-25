@@ -35,11 +35,13 @@ export const ProductCard = ({ product }: Props) => {
             <p className="text-gray-600 text-sm mb-2">{product.description}</p>
           )}
           {price && price.unit_amount && (
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="text-lg font-semibold text-yellow-500">
               ${(price.unit_amount / 100).toFixed(2)}
             </p>
           )}
-          <Button className="mt-4 bg-black text-white">View Details</Button>
+          <Button className="mt-4 bg-yellow-400 text-black hover:bg-black hover:text-white transition-colors">
+            View Details
+          </Button>
         </CardContent>
       </Card>
     </Link>
