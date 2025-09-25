@@ -38,7 +38,7 @@ export default async function Home() {
             alt="Hero Image"
             src={products.data[0].images[0]}
             className="rounded"
-            objectFit="contain"
+            style={{ objectFit: "contain" }}
             width={100}
             height={100}
           />

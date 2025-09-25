@@ -19,8 +19,8 @@ export const ProductCard = ({ product }: Props) => {
             <Image
               src={product.images[0]}
               alt={product.name}
-              layout="fill"
-              objectFit="contain"
+              fill
+              style={{ objectFit: "contain" }}
               className="group-hover:opacity-90 transition-opacity duration-300 rounded-t-lg p-2"
             />
           </div>

@@ -32,8 +32,8 @@ export const ProductDetail = ({ product }: Props) => {
           <Image
             src={product.images[0]}
             alt={product.name}
-            layout="fill"
-            objectFit="contain"
+            fill
+            style={{ objectFit: "contain" }}
             className="transition duration-300 hover:opacity-90"
           />
         </div>
