@@ -18,7 +18,7 @@ export default function CheckoutPage() {
       <div className="container mx-auto px-4 py-16 text-center">
         <h1 className="text-3xl font-bold mb-4">Your Cart is Empty</h1>
         <p className="text-neutral-600">
-          Browse products to add items to your cart.
+          Browse products to add items to your cart. test
         </p>
       </div>
     );
