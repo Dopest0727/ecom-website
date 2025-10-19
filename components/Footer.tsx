@@ -10,7 +10,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="mt-20 border-t border-stone-800  bg-stone-950">
+    <footer className="mt-20 h-[20vh] border-t border-stone-800  bg-stone-950">
       <div className="mx-auto max-w-7xl px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left">
         {/* Left section */}
         <div>

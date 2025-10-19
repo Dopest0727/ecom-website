@@ -8,10 +8,6 @@ interface Props {
   products: Stripe.Product[];
 }
 
-interface Props {
-  product: Stripe.Product;
-}
-
 export const BestSellers = ({ products }: Props) => {
   if (!products || products.length === 0) return null;
 

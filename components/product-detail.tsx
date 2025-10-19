@@ -2,10 +2,10 @@
 
 import Stripe from "stripe";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cart-store";
 import { Breadcrumbs } from "./breadcrumbs";
 import Link from "next/link";
+import { Button } from "./ui/button";
 
 interface Props {
   product: Stripe.Product;
@@ -13,9 +13,10 @@ interface Props {
 
 export const ProductDetail = ({ product }: Props) => {
   const { items, addItem, removeItem } = useCartStore();
-  const CartItem = items.find((item) => item.id === product.id);
-  const quantity = CartItem ? CartItem.quantity : 0;
+  const cartItem = items.find((item) => item.id === product.id);
+  const quantity = cartItem ? cartItem.quantity : 0;
   const price = product.default_price as Stripe.Price;
+  const unitAmount = price?.unit_amount ? price.unit_amount / 100 : 0;
 
   const onAddItem = () => {
     addItem({
@@ -29,51 +30,74 @@ export const ProductDetail = ({ product }: Props) => {
 
   return (
     <>
-      <Breadcrumbs category="Products" product={product.name} />
-      <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
-        {product.images && product.images[0] && (
-          <div className="relative h-96 w-full md:w-1/2 rounded-lg overflow-hidden">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              fill
-              style={{ objectFit: "contain" }}
-              className="transition duration-300 hover:opacity-90"
-            />
-          </div>
-        )}
-        <div className="md:w-1/2">
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          {product.description && (
-            <p className="text-gray-700 mb-4">{product.description}</p>
+      <Breadcrumbs category="Produkter" product={product.name} />
+      <section className="mx-auto max-w-7xl px-6 py-12">
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          {/* Product Image */}
+          {product.images && product.images[0] && (
+            <div className="relative h-[28rem] w-full md:w-1/2 overflow-hidden rounded-sm border border-stone-700 bg-stone-900 shadow-sm">
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                fill
+                className="object-contain transition-transform duration-300 hover:scale-105"
+              />
+            </div>
           )}
-          {price && price.unit_amount && (
-            <p className="text-lg font-semibold text-yellow-500 mb-4">
-              ${(price.unit_amount / 100).toFixed(2)}
+
+          {/* Product Info */}
+          <div className="md:w-1/2 space-y-6">
+            <h1 className="text-3xl md:text-4xl font-semibold text-stone-100">
+              {product.name}
+            </h1>
+
+            {product.description && (
+              <p className="text-stone-400 leading-relaxed">
+                {product.description}
+              </p>
+            )}
+
+            <p className="text-2xl font-semibold text-red-500">
+              {unitAmount.toFixed(2)} kr
             </p>
-          )}
-          <div className="flex items-center space-x-4">
-            <Button onClick={() => removeItem(product.id)} variant="outline">
-              -
-            </Button>
-            <span className="text-lg font-semibold text-yellow-500">
-              {quantity}
-            </span>
-            <Button
-              onClick={onAddItem}
-              className="bg-black text-white hover:bg-yellow-500 hover:text-black"
-            >
-              +
-            </Button>
-            <Button>
-              <Link href="/checkout">Gå till kassan</Link>
-            </Button>
-            <Button className="bg-yellow-500 text-black">
-              <Link href="/products">Go back to products</Link>
-            </Button>
+
+            {/* Quantity Controls */}
+            <div className="flex items-center gap-4">
+              <Button
+                onClick={() => removeItem(product.id)}
+                variant="outline"
+                className="border-stone-600 text-stone-200 hover:bg-stone-800 hover:text-red-400"
+              >
+                −
+              </Button>
+              <span className="text-lg font-semibold text-stone-100 w-6 text-center">
+                {quantity}
+              </span>
+              <Button
+                onClick={onAddItem}
+                className="bg-red-600 text-white hover:bg-red-500"
+              >
+                +
+              </Button>
+            </div>
+
+            {/* Actions */}
+            <div className="flex flex-wrap gap-3 pt-4">
+              <Link href="/checkout" className="w-full sm:w-auto">
+                <Button className="w-full bg-stone-100 text-stone-900 hover:bg-stone-200">
+                  Gå till kassan
+                </Button>
+              </Link>
+
+              <Link href="/products" className="w-full sm:w-auto">
+                <Button className="w-full border border-stone-600 text-stone-100 hover:bg-stone-800">
+                  Tillbaka till produkter
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   );
 };

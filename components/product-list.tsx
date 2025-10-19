@@ -1,8 +1,8 @@
 "use client";
 
-import Stripe from "stripe";
-import { ProductCard } from "./product-card";
 import { useState } from "react";
+import Stripe from "stripe";
+import { ProductCard } from "./ProductCard";
 
 interface Props {
   products: Stripe.Product[];
@@ -11,7 +11,7 @@ interface Props {
 export const ProductList = ({ products }: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredProduct = products.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.name.toLowerCase().includes(term);
     const descriptionMatch = product.description
@@ -22,24 +22,37 @@ export const ProductList = ({ products }: Props) => {
   });
 
   return (
-    <div>
-      <div className="mb-6 flex justify-center">
+    <section className="mx-auto max-w-7xl px-6 py-12">
+      {/* Header & Search */}
+      <div className="flex flex-col items-center mb-10 space-y-4">
+        <h2 className="text-3xl font-semibold text-stone-100">
+          Alla produkter
+        </h2>
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search products..."
-          className="w-full max-w-md rounded border border-gray-300 px-4 py-2 
-             focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          placeholder="Sök produkter..."
+          className="w-full max-w-md rounded-xs border border-stone-700 bg-stone-900 px-4 py-2 
+                     text-stone-100 placeholder-stone-500 focus:outline-none 
+                     focus:ring-1 focus:ring-stone-500 focus:border-transparent transition-all"
         />
       </div>
-      <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredProduct.map((product, key) => (
-          <li key={key}>
-            <ProductCard product={product} />
-          </li>
-        ))}
-      </ul>
-    </div>
+
+      {/* Product Grid */}
+      {filteredProducts.length > 0 ? (
+        <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filteredProducts.map((product, index) => (
+            <li key={index}>
+              <ProductCard product={product} />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="text-center text-stone-400 mt-10">
+          Inga produkter matchar din sökning.
+        </p>
+      )}
+    </section>
   );
 };
