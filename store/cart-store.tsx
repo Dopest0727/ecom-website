@@ -13,12 +13,17 @@ interface CartStore {
   items: CartItem[];
   addItem: (item: CartItem) => void;
   removeItem: (id: string) => void;
+  deleteItem: (id: string) => void;
   clearCart: () => void;
 }
 
 export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
+      deleteItem: (id: string) =>
+        set((state) => ({
+          items: state.items.filter((item) => item.id !== id),
+        })),
       items: [],
       addItem: (item) =>
         set((state) => {

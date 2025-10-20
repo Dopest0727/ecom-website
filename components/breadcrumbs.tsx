@@ -8,7 +8,7 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs = ({ category, product }: BreadcrumbsProps) => {
   return (
-    <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+    <nav className="text-sm text-stone-500 mb-4" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1">
         <li>
           <Link href="/" className="hover:text-yellow-500">

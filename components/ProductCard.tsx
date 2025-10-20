@@ -13,11 +13,12 @@ export const ProductCard = ({ product }: Props) => {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group block h-full rounded-xs border border-stone-700 bg-stone-900 p-3 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300"
+      className="group block h-full rounded-md border border-stone-700 bg-stone-900 overflow-hidden 
+                 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
     >
       {/* Produktbild */}
       {product.images?.[0] && (
-        <div className="relative aspect-square w-full overflow-hidden rounded-xs bg-stone-800">
+        <div className="relative aspect-[4/5] w-full overflow-hidden bg-stone-800">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -28,12 +29,13 @@ export const ProductCard = ({ product }: Props) => {
       )}
 
       {/* Produktinfo */}
-      <div className="mt-4 flex flex-col justify-between text-left space-y-3">
+      <div className="p-5 flex flex-col justify-between space-y-4">
         {/* Namn & beskrivning */}
         <div>
-          <h3 className="text-lg font-medium text-stone-100 truncate">
+          <h3 className="text-xl font-semibold text-stone-100 group-hover:text-stone-300 transition-colors truncate">
             {product.name}
           </h3>
+
           {product.description && (
             <p className="text-sm text-stone-400 line-clamp-2">
               {product.description}
@@ -42,12 +44,17 @@ export const ProductCard = ({ product }: Props) => {
         </div>
 
         {/* Pris & knapp */}
-        <div className="flex items-center justify-between">
-          <p className="text-base font-medium text-stone-100">
-            {unitAmount.toFixed(2)} kr
+        <div className="flex items-center justify-between pt-2">
+          <p className="text-lg font-light text-stone-100">
+            {unitAmount.toFixed(0)} kr
           </p>
-          <span className="px-3 py-1 text-sm font-medium rounded-xs bg-stone-800 text-stone-100 border border-stone-700 group-hover:bg-stone-100 group-hover:text-stone-900 transition-colors duration-300">
-            View Details
+
+          <span
+            className="inline-flex items-center px-4 py-1.5 text-sm font-medium rounded-sm border border-stone-300 
+                       text-stone-100 bg-stone-900 group-hover:bg-stone-100 group-hover:text-stone-900 
+                       transition-all duration-300"
+          >
+            Visa produkt
           </span>
         </div>
       </div>

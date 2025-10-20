@@ -1,4 +1,4 @@
-import { ProductList } from "@/components/product-list";
+import { ProductList } from "@/components/ProductList";
 import { stripe } from "@/lib/stripe";
 
 export default async function ProductsPage() {
