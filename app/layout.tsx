@@ -26,10 +26,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex min-h-full flex-col bg-stone-950">
+    <html lang="en" className="h-full">
+      <body className="flex flex-col min-h-screen bg-stone-950 text-stone-100">
         <Navbar />
-        <main>{children}</main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>

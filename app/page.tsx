@@ -6,7 +6,7 @@ import HistoryBento from "@/components/History";
 export default async function Home() {
   const products = await stripe.products.list({
     expand: ["data.default_price"],
-    limit: 4,
+    limit: 3,
   });
 
   return (
