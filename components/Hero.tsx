@@ -3,8 +3,18 @@
 import Image from "next/image";
 import HERO_IMG from "../assets/HERO.jpg";
 import Link from "next/link";
+import { motion, Variants, easeOut } from "framer-motion";
 
 export default function Hero() {
+  const fadeIn: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: easeOut },
+    },
+  };
+
   return (
     <section className="relative h-[65vh] w-full overflow-hidden bg-white dark:bg-stone-950">
       {/* Hero Image */}
@@ -20,7 +30,12 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/40 to-transparent dark:from-stone-950 dark:via-stone-950/60 dark:to-transparent" />
 
       {/* Text Content */}
-      <div className="absolute inset-0 flex justify-center">
+      <motion.div
+        initial="hidden"
+        animate="show"
+        variants={fadeIn}
+        className="absolute inset-0 flex justify-center"
+      >
         <div className="flex w-full max-w-7xl items-center justify-end px-6">
           <div className="max-w-md text-left">
             <h1 className="text-3xl md:text-7xl font-semibold tracking-tight text-white drop-shadow-md">
@@ -37,7 +52,7 @@ export default function Hero() {
             </Link>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

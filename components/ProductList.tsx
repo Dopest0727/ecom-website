@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Stripe from "stripe";
 import { ProductCard } from "./ProductCard";
 
@@ -19,6 +19,15 @@ export const ProductList = ({ products }: Props) => {
       : false;
     return nameMatch || descriptionMatch;
   });
+
+  const shuffledProducts = useMemo(() => {
+    const array = [...filteredProducts];
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }, [filteredProducts]);
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-16">
@@ -40,9 +49,9 @@ export const ProductList = ({ products }: Props) => {
       </div>
 
       {/* Product Grid */}
-      {filteredProducts.length > 0 ? (
+      {shuffledProducts.length > 0 ? (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredProducts.map((product) => (
+          {shuffledProducts.map((product) => (
             <li key={product.id}>
               <ProductCard product={product} />
             </li>

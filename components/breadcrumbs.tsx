@@ -8,31 +8,27 @@ interface BreadcrumbsProps {
 
 export const Breadcrumbs = ({ category, product }: BreadcrumbsProps) => {
   return (
-    <nav className="text-sm text-stone-500 mb-4" aria-label="Breadcrumb">
+    <nav className="text-sm text-stone-300 mb-4" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1">
         <li>
-          <Link href="/" className="hover:text-yellow-500">
-            Home
-          </Link>
+          <Link href="/">Home</Link>
         </li>
         {category && (
           <>
             <li>
-              <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+              <ChevronRightIcon className="h-4 w-4 text-stone-300" />
             </li>
             <li>
-              <Link href="/products" className="hover:text-yellow-500">
-                {category}
-              </Link>
+              <Link href="/products">{category}</Link>
             </li>
           </>
         )}
         {product && (
           <>
             <li>
-              <ChevronRightIcon className="h-4 w-4 text-gray-400" />
+              <ChevronRightIcon className="h-4 w-4 text-stone-300" />
             </li>
-            <li className="text-gray-800 font-medium">{product}</li>
+            <li className="text-stone-500 font-medium">{product}</li>
           </>
         )}
       </ol>

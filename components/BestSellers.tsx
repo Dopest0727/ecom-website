@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Stripe from "stripe";
 import { ArrowRight } from "lucide-react";
+import { motion, Variants, easeOut } from "framer-motion";
 
 interface Props {
   products: Stripe.Product[];
@@ -12,25 +13,38 @@ interface Props {
 export const BestSellers = ({ products }: Props) => {
   if (!products || products.length === 0) return null;
 
-  // Filtrera produkter som har metadata.bestseller = "true"
   const featuredProducts = products.filter(
     (product) => product.metadata?.bestseller === "true"
   );
 
+  // Framer Motion variant
+  const fadeUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: easeOut },
+    },
+  };
+
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16">
+    <section className="mx-auto max-w-7xl px-6 py-10">
       <h2 className="mb-10 text-3xl font-semibold text-stone-100">
         Våra bästsäljare
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {featuredProducts.map((product) => {
           const price = product.default_price as Stripe.Price;
           const unitAmount = price?.unit_amount ? price.unit_amount / 100 : 0;
 
           return (
-            <div
+            <motion.div
               key={product.id}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={fadeUp}
               className="group relative bg-stone-900 border border-stone-700 
                          rounded-md overflow-hidden shadow-sm 
                          hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
@@ -77,7 +91,7 @@ export const BestSellers = ({ products }: Props) => {
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>
               </div>
-            </div>
+            </motion.div>
           );
         })}
       </div>
