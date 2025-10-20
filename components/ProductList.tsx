@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState, useEffect } from "react";
 import Stripe from "stripe";
 import { ProductCard } from "./ProductCard";
 
@@ -9,9 +9,17 @@ interface Props {
 }
 
 export const ProductList = ({ products }: Props) => {
+  const [shuffledProducts, setShuffledProducts] =
+    useState<Stripe.Product[]>(products);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredProducts = products.filter((product) => {
+  useEffect(() => {
+    // Shuffle only on the client
+    const shuffled = [...products].sort(() => Math.random() - 0.5);
+    setShuffledProducts(shuffled);
+  }, [products]);
+
+  const filteredProducts = shuffledProducts.filter((product) => {
     const term = searchTerm.toLowerCase();
     const nameMatch = product.name.toLowerCase().includes(term);
     const descriptionMatch = product.description
@@ -20,23 +28,12 @@ export const ProductList = ({ products }: Props) => {
     return nameMatch || descriptionMatch;
   });
 
-  const shuffledProducts = useMemo(() => {
-    const array = [...filteredProducts];
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }, [filteredProducts]);
-
   return (
     <section className="mx-auto max-w-7xl px-6 py-16">
-      {/* Header & Search */}
       <div className="flex flex-col items-center mb-12 space-y-6">
         <h2 className="text-3xl font-semibold text-stone-100">
           Alla produkter
         </h2>
-
         <input
           type="text"
           value={searchTerm}
@@ -48,10 +45,9 @@ export const ProductList = ({ products }: Props) => {
         />
       </div>
 
-      {/* Product Grid */}
-      {shuffledProducts.length > 0 ? (
+      {filteredProducts.length > 0 ? (
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {shuffledProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <li key={product.id}>
               <ProductCard product={product} />
             </li>
