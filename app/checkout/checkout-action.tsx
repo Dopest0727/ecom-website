@@ -3,6 +3,7 @@
 import { stripe } from "@/lib/stripe";
 import { CartItem } from "@/store/cart-store";
 import { redirect } from "next/navigation";
+import { BASE_URL } from "@/lib/constants";
 
 export const checkoutAction = async (formData: FormData): Promise<void> => {
   const itemsJson = formData.get("items") as string;
@@ -17,16 +18,12 @@ export const checkoutAction = async (formData: FormData): Promise<void> => {
     quantity: item.quantity,
   }));
 
-  if (!process.env.BASE_URL) {
-    throw new Error("BASE_URL is not defined in environment variables");
-  }
-
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card", "klarna", "paypal"],
     line_items,
     mode: "payment",
-    success_url: `${process.env.BASE_URL}/success`,
-    cancel_url: `${process.env.BASE_URL}/checkout`,
+    success_url: `${BASE_URL}/success`,
+    cancel_url: `${BASE_URL}/checkout`,
   });
 
   redirect(session.url!);
